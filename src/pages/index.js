@@ -1,4 +1,5 @@
-import Head from 'next/head'
+import React from 'react';
+import Head from 'next/head';
 
 import CountryCard from '../components/CountryCard';
 
@@ -19,7 +20,7 @@ function Home({ countries }) {
       ))}
 
     </div>
-  )
+  );
 }
 
 export const getServerSideProps = async () => {
@@ -28,15 +29,15 @@ export const getServerSideProps = async () => {
 
   if (!data) {
     return {
-      notFound: true
-    }
+      notFound: true,
+    };
   }
 
   return {
     props: {
-      countries: data
-    }
-  }
+      countries: data,
+    },
+  };
 };
 
 export default Home;

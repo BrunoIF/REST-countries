@@ -1,33 +1,30 @@
 import React from 'react';
 
 function Country({ content }) {
-
-  console.log('content', content)
+  console.log('content', content);
 
   return (
     <div>Hello</div>
   );
-};
+}
 
-export const getStaticPath = async () => {
-  return {
-    paths: [
+export const getStaticPath = async () => ({
+  paths: [
 
-    ],
-    fallback: false
-  }
-};
+  ],
+  fallback: false,
+});
 
 export const getServerSideProps = async (context) => {
-  const { params: { id }} = context;
+  const { params: { id } } = context;
   const response = await fetch(`https://restcountries.eu/rest/v2/name/${id}`);
   const data = await response.json().results.toString();
   console.log('data', data);
 
   return {
     props: {
-      content: data
-    }
+      content: data,
+    },
   };
 };
 

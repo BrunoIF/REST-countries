@@ -6,12 +6,14 @@ import { formatNumber } from '../../utils';
 import styles from './styles.module.scss';
 
 function CountryCard({ country }) {
-  const { name, flag, region, capital, population } = country;
+  const {
+    name, flag, region, capital, population,
+  } = country;
   const formattedPopulation = formatNumber(population);
 
   return (
     <div className={styles.container}>
-      <img src={flag}></img>
+      <img src={flag} alt={`${name}-flag`} />
       <div className={styles.content}>
         <h3 className={styles.title}>{name}</h3>
         <Info className={styles.text} title="Population" description={formattedPopulation} />
