@@ -1,5 +1,7 @@
 import Head from 'next/head'
 
+import CountryCard from '../components/CountryCard';
+
 function Home({ countries }) {
   return (
     <div>
@@ -11,6 +13,10 @@ function Home({ countries }) {
       <pre>
         {JSON.stringify(countries)}
       </pre>
+
+      {countries.map(country => (
+        <CountryCard key={country.numericCode} country={country} />
+      ))}
 
     </div>
   )
