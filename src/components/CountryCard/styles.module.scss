@@ -1,0 +1,20 @@
+.container {
+  width: 20%;
+  border: 1px solid red;
+  border-radius: 10px;
+  overflow: hidden;
+
+  img {
+    max-width: 100%;
+  }
+}
+
+.content {
+  padding: 25px 25px 40px;
+  border-top: 1px solid #444;
+}
+
+.title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
