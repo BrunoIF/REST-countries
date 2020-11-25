@@ -2,10 +2,10 @@ import React from 'react';
 
 import styles from './styles.module.scss';
 
-function Info({ title, description }) {
+function Info({ className, title, description }) {
 
   return (
-    <p>
+    <p className={className}>
       <span className={styles.title}>{title}: </span>
       {description}
     </p>

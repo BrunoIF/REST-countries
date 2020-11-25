@@ -14,9 +14,9 @@ function CountryCard({ country }) {
       <img src={flag}></img>
       <div className={styles.content}>
         <h3 className={styles.title}>{name}</h3>
-        <Info title="Population" description={formattedPopulation} />
-        <Info title="Region" description={region} />
-        <Info title="Capital" description={capital} />
+        <Info className={styles.text} title="Population" description={formattedPopulation} />
+        <Info className={styles.text} title="Region" description={region} />
+        <Info className={styles.text} title="Capital" description={capital} />
       </div>
     </div>
   );
