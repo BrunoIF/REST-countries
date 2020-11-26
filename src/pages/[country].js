@@ -2,13 +2,13 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import Head from 'next/head';
 
 import Info from '../components/Info';
 import LinkButton from '../components/LinkButton';
+import { formatNumber, getStringListOfAttr } from '../utils';
 
 import styles from './country.module.scss';
-
-import { formatNumber, getStringListOfAttr } from '../utils';
 
 function Country({ content }) {
   const route = useRouter();
@@ -37,32 +37,37 @@ function Country({ content }) {
   const backArrow = <FontAwesomeIcon icon={faArrowLeft} />;
 
   return (
-    <div className={`container ${styles.container}`}>
-      <LinkButton to="/" text="Back" className={styles.button} Icon={backArrow} />
-      <div className={styles.country}>
-        <img className={styles.flag} src={flag} alt={`${name}-flag`} />
-        <div className={styles.content}>
-          <h1 className={styles.title}>{name}</h1>
-          <div className={styles.contentContainer}>
-            <div className={styles.contentBlock}>
-              <Info className={styles.text} title="Native Name" description={nativeName} />
-              <Info className={styles.text} title="Population" description={formattedPopulation} />
-              <Info className={styles.text} title="Region" description={region} />
-              <Info className={styles.text} title="Sub Region" description={subregion} />
-              <Info className={styles.text} title="Capital" description={capital} />
+    <>
+      <Head>
+        <title>{name}</title>
+      </Head>
+      <div className={`container ${styles.container}`}>
+        <LinkButton to="/" text="Back" className={styles.button} Icon={backArrow} />
+        <div className={styles.country}>
+          <img className={styles.flag} src={flag} alt={`${name}-flag`} />
+          <div className={styles.content}>
+            <h1 className={styles.title}>{name}</h1>
+            <div className={styles.contentContainer}>
+              <div className={styles.contentBlock}>
+                <Info className={styles.text} title="Native Name" description={nativeName} />
+                <Info className={styles.text} title="Population" description={formattedPopulation} />
+                <Info className={styles.text} title="Region" description={region} />
+                <Info className={styles.text} title="Sub Region" description={subregion} />
+                <Info className={styles.text} title="Capital" description={capital} />
+              </div>
+              <div className={styles.contentBlock}>
+                <Info className={styles.text} title="Top Level Domain" description={topLevelDomain[0]} />
+                <Info className={styles.text} title="Currencies" description={currenciesList} />
+                <Info className={styles.text} title="Languages" description={languagesList} />
+              </div>
             </div>
-            <div className={styles.contentBlock}>
-              <Info className={styles.text} title="Top Level Domain" description={topLevelDomain[0]} />
-              <Info className={styles.text} title="Currencies" description={currenciesList} />
-              <Info className={styles.text} title="Languages" description={languagesList} />
+            <div className={styles.borderCountries}>
+              <Info className={styles.text} title="Border Countries" description={borderCountriesList} />
             </div>
-          </div>
-          <div className={styles.borderCountries}>
-            <Info className={styles.text} title="Border Countries" description={borderCountriesList} />
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
