@@ -45,3 +45,19 @@
 .button {
   margin: 60px 0 80px;
 }
+
+.borderCountries {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.borderCountry {
+  margin: 5px 5px;
+  display: inline-flex;
+  a {
+    padding: 6px 15px;
+    border-radius: 1px;
+    box-shadow: none;
+    border: 1px solid rgba($black, .15);
+  }
+}

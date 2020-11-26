@@ -8,17 +8,17 @@ import styles from './country.module.scss';
 import { formatNumber, getStringListOfAttr } from '../utils';
 
 function Country({ content }) {
-  console.log('content', content);
   const route = useRouter();
   
   if(route.isFallback) {
     return <h1>Loading...</h1>;
   }
   
-  const { population, name, region, subregion, nativeName, capital, topLevelDomain, currencies, languages, flag } = content;
+  const { population, name, region, subregion, nativeName, capital, topLevelDomain, currencies, languages, flag, borderCountries } = content;
   const formattedPopulation = formatNumber(population);
   const currenciesList = getStringListOfAttr(currencies, 'name');
   const languagesList = getStringListOfAttr(languages, 'name');
+  const borderCountriesList = borderCountries.length ? borderCountries.map(country => <LinkButton className={styles.borderCountry} to={`/${country.toLowerCase()}`} text={country} />) : null
 
   return (
     <div className={`container ${styles.container}`}>
@@ -41,6 +41,9 @@ function Country({ content }) {
               <Info className={styles.text} title="Languages" description={languagesList}/>
             </div>
           </div>
+          <div className={styles.borderCountries}>
+            <Info className={styles.text} title="Border Countries" description={borderCountriesList} />
+          </div>
         </div>
       </div>
     </div>
@@ -58,9 +61,28 @@ export const getStaticProps = async (context) => {
   const response = await fetch(`https://restcountries.eu/rest/v2/name/${country}`);
   const data = await response.json();
 
+  if(!data) {
+    return {
+      notFound: true
+    };
+  }
+
+  let countryData = { ...data[0], borderCountries: [] };
+
+  const borderCountries = data[0].borders?.join(';') || [];
+  console.log('borderCountries', borderCountries)
+
+  if(borderCountries.length) {
+    const bordersResponse = await fetch(`https://restcountries.eu/rest/v2/alpha?codes=${borderCountries}`);
+    const bordersData = await bordersResponse.json();
+    
+    const borderCountriesNames = bordersData.map(country => country.name);
+    countryData = { ...countryData, borderCountries: borderCountriesNames}
+  }
+
   return {
     props: {
-      content: data[0],
+      content: countryData,
     },
   };
 };
