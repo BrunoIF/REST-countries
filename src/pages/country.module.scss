@@ -1,0 +1,47 @@
+@import 'src/styles/variables/sizes';
+@import 'src/styles/variables/colors';
+
+.container {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.country {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flag {
+  width: 40%;
+  border: 1px solid rgba($black, .07);
+}
+
+.content {
+  width: 50%;
+}
+
+.title {
+  margin-bottom: 20px;
+}
+
+.text {
+  font-size: $font-size-detail;
+  margin: 15px 0;
+}
+
+.contentContainer {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 80%;
+}
+
+.button {
+  margin: 60px 0 80px;
+}
