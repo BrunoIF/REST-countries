@@ -1,9 +1,14 @@
 .container {
   display: flex;
   flex-flow: row wrap;
+  justify-content: space-between;
 }
 
-.input {
+.filters {
   margin-left: 35px;
+  margin-right: 35px;
   margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

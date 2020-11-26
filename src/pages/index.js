@@ -3,25 +3,26 @@ import Head from 'next/head';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
-import styles from './index.module.scss';
-
 import Input from '../components/Input';
 import CountryCard from '../components/CountryCard';
+import SelectList from '../components/SelectList';
+import { REGION_OPTIONS, DEFAULT_AMOUNT_COUNTRIES_TO_DISPLAY } from '../constants';
+
+import styles from './index.module.scss';
 
 function Home({ countries }) {
   const [searchValue, setSearchValue] = useState('');
   const [countriesContent, setCountriesContent] = useState([]);
   const searchIcon = <FontAwesomeIcon icon={faSearch} />;
-  const DEFAULT_AMOUNT_COUNTRIES_TO_DISPLAY = 15;
 
-  const getMostPopulous = () => {
+  const setMostPopulousCountries = () => {
     const sortedByPopulation = countries.sort((a, b) => b.population - a.population);
-    return sortedByPopulation.slice(0, DEFAULT_AMOUNT_COUNTRIES_TO_DISPLAY);
+    const countriesToDisplay = sortedByPopulation.slice(0, DEFAULT_AMOUNT_COUNTRIES_TO_DISPLAY);
+    setCountriesContent(countriesToDisplay);
   };
 
   useEffect(() => {
-    const topPopulousCountries = getMostPopulous();
-    setCountriesContent(topPopulousCountries);
+    setMostPopulousCountries();
   }, []);
 
   useEffect(() => {
@@ -33,10 +34,18 @@ function Home({ countries }) {
       });
       setCountriesContent(filteredCountries);
     } else {
-      const topPopulousCountries = getMostPopulous();
-      setCountriesContent(topPopulousCountries);
+      setMostPopulousCountries();
     }
   }, [searchValue]);
+
+  const handleRegionChange = (selectedRegion) => {
+    if (selectedRegion) {
+      const filteredCountries = countries.filter(country => country.region === selectedRegion);
+      setCountriesContent(filteredCountries);
+    } else {
+      setMostPopulousCountries();
+    }
+  };
 
   return (
     <>
@@ -46,7 +55,11 @@ function Home({ countries }) {
       </Head>
 
       <div className="container">
-        <Input className={styles.input} onChange={e => setSearchValue(e.target.value)} placeholder="Search for a country..." value={searchValue} Icon={searchIcon} />
+        <div className={styles.filters}>
+          <Input onChange={e => setSearchValue(e.target.value)} placeholder="Search for a country..." value={searchValue} Icon={searchIcon} />
+
+          <SelectList options={REGION_OPTIONS} onChange={handleRegionChange} />
+        </div>
 
         <div className={`${styles.container}`}>
           {countriesContent.map(country => (
