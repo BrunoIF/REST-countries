@@ -1,0 +1,11 @@
+@import 'src/styles/variables/colors';
+
+.buttonContainer {
+  display: flex;
+}
+
+.button {
+  padding: 12px 50px;
+  border-radius: 5px;
+  box-shadow: 0 0 6px -2px $black;
+}
