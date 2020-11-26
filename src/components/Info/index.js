@@ -8,7 +8,7 @@ function Info({ className, title, description }) {
       <span className={styles.title}>
         {`${title}: `}
       </span>
-      {description}
+      {description || '-'}
     </p>
   );
 }
