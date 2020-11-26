@@ -1,13 +1,13 @@
 import React from 'react';
 import Head from 'next/head';
 
-import CountryCard from '../components/CountryCard';
-
 import styles from './index.module.scss';
+
+import CountryCard from '../components/CountryCard';
 
 function Home({ countries }) {
   return (
-    <div className={styles.container}>
+    <div className={`container ${styles.container}`}>
       <Head>
         <title>REST Countries</title>
         <link rel="icon" href="/favicon.ico" />
@@ -21,8 +21,8 @@ function Home({ countries }) {
   );
 }
 
-export const getServerSideProps = async () => {
-  const res = await fetch('https://restcountries.eu/rest/v2/name/japan');
+export const getStaticProps = async () => {
+  const res = await fetch('https://restcountries.eu/rest/v2/all');
   const data = await res.json();
 
   if (!data) {
@@ -31,9 +31,13 @@ export const getServerSideProps = async () => {
     };
   }
 
+  const DEFAULT_AMOUNT_COUNTRIES_TO_DISPLAY = 15;
+  const sortedByPopulation = data.sort((a, b) => b.population - a.population);
+  const slicedData = sortedByPopulation.slice(0, DEFAULT_AMOUNT_COUNTRIES_TO_DISPLAY);
+
   return {
     props: {
-      countries: data,
+      countries: slicedData,
     },
   };
 };
