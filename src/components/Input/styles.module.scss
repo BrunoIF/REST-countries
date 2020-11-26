@@ -1,0 +1,35 @@
+@import 'src/styles/variables/sizes';
+@import 'src/styles/variables/colors';
+
+.input {
+  box-shadow: 2px 5px 10px -5px rgba($black, 0.2);
+  width: 500px;
+  border-radius: 5px;
+  overflow: hidden;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  background-color: $white;
+  
+  input {
+    font-family: 'Nunito Light';
+    font-size: $font-size-home;
+    padding: 20px 20px;
+    padding-left: 10px;
+    border: 0;
+    width: 100%;
+
+    &:focus {
+      outline: 1px solid $dark-gray;
+    }
+  }
+}
+
+.icon {
+  padding: 0 15px 0 35px;
+  color: $dark-gray;
+
+  svg {
+    fill: $dark-gray;
+  }
+}
