@@ -1,0 +1,72 @@
+@import 'src/styles/variables/colors';
+
+@mixin baseProperties {
+  border-radius: 5px;
+  background-color: $white;
+  box-shadow: 2px 5px 10px -5px rgba($black, 0.2);
+}
+
+.container {
+  width: 200px;
+  position: relative;
+}
+
+.selectedValue {
+  @include baseProperties;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px 20px;
+  cursor: pointer;
+  position: relative;
+  
+  svg {
+    $size: 12px;
+    height: $size;
+    width: $size;
+    margin-left: 30px;
+    position: absolute;
+    right: 15px;
+  }
+}
+
+.options {
+  @include baseProperties;
+  margin-top: 4px;
+  z-index: 2;
+  position: absolute;
+  width: 100%;
+  display: none;
+  overflow: hidden;
+  user-select: none;
+}
+
+.option {
+  padding: 12px 20px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: darken($white, 2%);
+  }
+}
+
+.open {
+  display: block;
+}
+
+.reset {
+  $size: 20px;
+  height: $size;
+  width: $size;
+  border-radius: 100%;
+  background-color: darken($white, 15%);
+  position: absolute;
+  left: -30px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: $white;
+}
