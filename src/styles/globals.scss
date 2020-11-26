@@ -1,5 +1,8 @@
 @import './reset';
 @import './fonts';
+@import './layout';
+
+@import './variables/colors';
 
 html,
 body {
@@ -8,6 +11,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   font-family: 'Nunito Light';
+  background-color: $background-light;
 }
 
 a {
@@ -17,4 +21,13 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  color: $dark-blue;
+}
+
+h1 {
+  font-size: 32px;
+  font-family: 'Nunito ExtraBold';
 }
