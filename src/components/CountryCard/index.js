@@ -15,7 +15,7 @@ function CountryCard({ country }) {
   return (
     <Link href={`/${name.toLowerCase()}`}>
       <div className={styles.container}>
-        <img src={flag} alt={`${name}-flag`} />
+        <div style={{ backgroundImage: `url('${flag}')` }} className={styles.flag} />
         <div className={styles.content}>
           <h3 className={styles.title}>{name}</h3>
           <Info className={styles.text} title="Population" description={formattedPopulation} />
