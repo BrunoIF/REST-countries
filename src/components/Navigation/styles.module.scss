@@ -1,3 +1,5 @@
+@import 'src/styles/variables/colors';
+
 .container {
   width: 100%;
   display: flex;
@@ -6,9 +8,17 @@
   justify-content: space-between;
   align-items: center;
   box-shadow: 0px -6px 12px #000;
-  background-color: #FFF;
+  background-color: $background-light;
+  position: fixed;
+  top: 0;
 }
 
 .title {
   font-size: 24px;
+  font-family: 'Nunito ExtraBold';
+}
+
+.theme-switcher {
+  font-family: 'Nunito SemiBold';
+  color: red;
 }

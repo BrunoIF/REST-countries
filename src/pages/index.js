@@ -3,17 +3,15 @@ import Head from 'next/head';
 
 import CountryCard from '../components/CountryCard';
 
+import styles from './index.module.scss';
+
 function Home({ countries }) {
   return (
-    <div>
+    <div className={styles.container}>
       <Head>
         <title>REST Countries</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <pre>
-        {JSON.stringify(countries)}
-      </pre>
 
       {countries.map(country => (
         <CountryCard key={country.numericCode} country={country} />

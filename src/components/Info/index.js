@@ -6,7 +6,7 @@ function Info({ className, title, description }) {
   return (
     <p className={className}>
       <span className={styles.title}>
-        {title}:
+        {`${title}: `}
       </span>
       {description}
     </p>
