@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 import Info from '../Info';
 
@@ -12,15 +13,17 @@ function CountryCard({ country }) {
   const formattedPopulation = formatNumber(population);
 
   return (
-    <div className={styles.container}>
-      <img src={flag} alt={`${name}-flag`} />
-      <div className={styles.content}>
-        <h3 className={styles.title}>{name}</h3>
-        <Info className={styles.text} title="Population" description={formattedPopulation} />
-        <Info className={styles.text} title="Region" description={region} />
-        <Info className={styles.text} title="Capital" description={capital} />
+    <Link href={`/${name.toLowerCase()}`}>
+      <div className={styles.container}>
+        <img src={flag} alt={`${name}-flag`} />
+        <div className={styles.content}>
+          <h3 className={styles.title}>{name}</h3>
+          <Info className={styles.text} title="Population" description={formattedPopulation} />
+          <Info className={styles.text} title="Region" description={region} />
+          <Info className={styles.text} title="Capital" description={capital} />
+        </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
