@@ -1,9 +1,15 @@
 
-// Dark Mode
-$dark-mode-blue: hsl(209, 23%, 22%);
-$dark-mode-dark-blue: hsl(207, 26%, 17%);
+$white: hsl(0, 0%, 100%);
+$black: #000;
 
-$white: #FFF;
+// Dark Theme
+$dark-mode-blue: hsl(209, 23%, 22%);
+$background-dark: hsl(207, 26%, 17%);
+
+// Light Theme
+$dark-gray: hsl(0, 0%, 52%);
+$background-light: hsl(0, 0%, 98%);
+$dark-blue: hsl(200, 15%, 8%);
 
 
 // Dark Blue (Dark Mode Elements): hsl(209, 23%, 22%)
