@@ -2,10 +2,20 @@
 
 .buttonContainer {
   display: flex;
+  align-items: center;
 }
 
 .button {
-  padding: 12px 50px;
+  padding: 12px 40px;
   border-radius: 5px;
   box-shadow: 0 0 6px -2px $black;
+  
+  &:hover {
+    transform: scale(1.02);
+    transition: .4s;
+  }
+}
+
+.icon {
+  margin-right: 15px;
 }
