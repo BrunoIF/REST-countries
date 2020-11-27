@@ -18,10 +18,16 @@
     padding-left: 10px;
     border: 0;
     width: 100%;
+    background-color: transparent;
+
+    &, &::placeholder {
+      color: $dark-gray;
+    }
 
     &:focus {
       outline: 1px solid $dark-gray;
     }
+
   }
 }
 
@@ -31,5 +37,21 @@
 
   svg {
     fill: $dark-gray;
+  }
+}
+
+:global(.dark) {
+  .input {
+    background-color: $dark-mode-blue;
+    
+    input {
+      &, &::placeholder {
+        color: $white;
+      }
+    }
+  }
+
+  .icon {
+    color: $white;
   }
 }

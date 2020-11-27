@@ -9,6 +9,7 @@
   padding: 12px 40px;
   border-radius: 5px;
   box-shadow: 0 0 6px -2px $black;
+  background-color: $white;
   
   &:hover {
     transform: scale(1.02);
@@ -18,4 +19,12 @@
 
 .icon {
   margin-right: 15px;
+}
+
+:global(.dark) {
+  .button {
+    background-color: $dark-mode-blue;
+    color: $white;
+    box-shadow: 0 0 15px 0px darken($dark-mode-blue, 10%);
+  }
 }

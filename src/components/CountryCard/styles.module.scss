@@ -8,6 +8,7 @@
   box-shadow: 5px 10px 20px -5px rgba($black, 0.2);
   cursor: pointer;
   margin: 35px;
+  background-color: $white;
 
   img {
     max-width: 100%;
@@ -39,4 +40,10 @@
   min-height: 160px;
   background-size: cover;
   background-position: center;
+}
+
+:global(.dark) {
+  .container {
+    background-color: $dark-mode-blue;
+  }
 }
