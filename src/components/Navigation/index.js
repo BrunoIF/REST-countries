@@ -2,14 +2,14 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoon } from '@fortawesome/free-regular-svg-icons';
 import { faMoon as faMoonSolid } from '@fortawesome/free-solid-svg-icons';
+import { useQuery } from '@apollo/client';
 
-import { useReactiveVar } from '@apollo/client';
-import { toggleTheme, isDarkThemeVar } from '../../lib/apolloStates';
+import { toggleTheme, GET_IS_DARK_THEME } from '../../lib/apollo';
 
 import styles from './styles.module.scss';
 
 function Navigation() {
-  const isDarkTheme = useReactiveVar(isDarkThemeVar);
+  const { data: { isDarkTheme } } = useQuery(GET_IS_DARK_THEME);
 
   return (
     <div className={styles.container}>

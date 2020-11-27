@@ -2,10 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import cn from 'classnames';
-import { useReactiveVar } from '@apollo/client';
 
-import { isDarkThemeVar } from '../lib/apolloStates';
 import Input from '../components/Input';
 import CountryCard from '../components/CountryCard';
 import SelectList from '../components/SelectList';
@@ -17,7 +14,6 @@ function Home({ countries }) {
   const [searchValue, setSearchValue] = useState('');
   const [countriesContent, setCountriesContent] = useState([]);
   const searchIcon = <FontAwesomeIcon icon={faSearch} />;
-  const isDarkTheme = useReactiveVar(isDarkThemeVar);
 
   const setMostPopulousCountries = () => {
     const sortedByPopulation = countries.sort((a, b) => b.population - a.population);
@@ -58,7 +54,7 @@ function Home({ countries }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className={cn('container', { [styles.dark]: isDarkTheme })}>
+      <div className="container">
         <div className={styles.filters}>
           <Input onChange={e => setSearchValue(e.target.value)} placeholder="Search for a country..." value={searchValue} Icon={searchIcon} />
 
