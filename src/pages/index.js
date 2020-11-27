@@ -74,7 +74,7 @@ function Home({ countries }) {
 }
 
 export const getStaticProps = async () => {
-  const res = await fetch('https://restcountries.eu/rest/v2/all?filter=name;capital;population;flag;region');
+  const res = await fetch('https://restcountries.eu/rest/v2/all?filter=name;capital;population;flag;region;numericCode');
   const data = await res.json();
 
   if (!data) {
@@ -82,10 +82,6 @@ export const getStaticProps = async () => {
       notFound: true,
     };
   }
-
-  // const DEFAULT_AMOUNT_COUNTRIES_TO_DISPLAY = 15;
-  // const sortedByPopulation = data.sort((a, b) => b.population - a.population);
-  // const slicedData = sortedByPopulation.slice(0, DEFAULT_AMOUNT_COUNTRIES_TO_DISPLAY);
 
   return {
     props: {
