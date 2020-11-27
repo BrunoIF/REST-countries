@@ -33,7 +33,16 @@ function Country({ content }) {
   const formattedPopulation = formatNumber(population);
   const currenciesList = getStringListOfAttr(currencies, 'name');
   const languagesList = getStringListOfAttr(languages, 'name');
-  const borderCountriesList = borderCountries.length ? borderCountries.map(country => <LinkButton className={styles.borderCountry} to={`/${country.toLowerCase()}`} text={country} />) : null;
+  const borderCountriesList = borderCountries.length
+    ? borderCountries.map(country => (
+      <LinkButton
+        className={styles.borderCountry}
+        to={`/${country.toLowerCase()}`}
+        text={country}
+        key={country}
+      />
+    ))
+    : null;
   const backArrow = <FontAwesomeIcon icon={faArrowLeft} />;
 
   return (

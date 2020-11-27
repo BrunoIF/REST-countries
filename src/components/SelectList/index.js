@@ -47,7 +47,13 @@ function SelectList({ options, onChange }) {
       </div>
       <div className={cn(styles.options, { [styles.open]: isOpen })}>
         {options.slice(1, options.length).map(option => (
-          <div className={styles.option} onClick={() => handleChange(option)}>{option}</div>
+          <div
+            key={option}
+            className={styles.option}
+            onClick={() => handleChange(option)}
+          >
+            {option}
+          </div>
         ))}
       </div>
     </div>
