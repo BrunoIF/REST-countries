@@ -1,5 +1,4 @@
-@import 'src/styles/variables/sizes';
-@import 'src/styles/variables/colors';
+@import "styles/utils";
 
 .container {
   display: flex;
@@ -7,6 +6,10 @@
   justify-content: flex-start;
   width: 90%;
   margin: 0 auto;
+
+  @include for-size(phone-only) {
+    width: 100%;
+  }
 }
 
 .country {
@@ -14,19 +17,35 @@
   flex-flow: row nowrap;
   align-items: center;
   justify-content: space-between;
+
+  @include for-size(phone-only) {
+    flex-flow: column nowrap;
+  }
 }
 
 .flag {
   width: 40%;
-  border: 1px solid rgba($black, .07);
+  border: 1px solid rgba($black, 0.07);
+
+  @include for-size(phone-only) {
+    width: 100%;
+  }
 }
 
 .content {
   width: 50%;
+
+  @include for-size(phone-only) {
+    width: 100%;
+  }
 }
 
 .title {
   margin-bottom: 20px;
+
+  @include for-size(phone-only) {
+    margin-top: 20px;
+  }
 }
 
 .text {
@@ -40,15 +59,35 @@
   align-items: flex-start;
   justify-content: space-between;
   width: 80%;
+
+  @include for-size(phone-only) {
+    flex-flow: column nowrap;
+
+    .text:first-child {
+      margin-top: 0;
+    }
+  }
 }
 
 .button {
   margin: 60px 0 80px;
+
+  @include for-size(phone-only) {
+    margin: 0 0 20px;
+  }
 }
 
 .borderCountries {
   display: flex;
   flex-flow: row wrap;
+
+  @include for-size(phone-only) {
+    margin-top: 0;
+
+    .text {
+      margin-top: 0;
+    }
+  }
 }
 
 .borderCountry {
@@ -58,6 +97,6 @@
     padding: 6px 15px;
     border-radius: 1px;
     box-shadow: none;
-    border: 1px solid rgba($black, .15);
+    border: 1px solid rgba($black, 0.15);
   }
 }

@@ -1,5 +1,11 @@
+@import "styles/utils";
+
 .container {
   min-height: 100vh;
   padding: 0 80px;
   padding-top: 120px;
+
+  @include for-size(phone-only) {
+    padding: 120px 50px 30px;
+  }
 }

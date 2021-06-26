@@ -1,4 +1,4 @@
-@import 'src/styles/variables/colors';
+@import "styles/utils";
 
 .container {
   width: 100%;
@@ -12,6 +12,10 @@
   position: fixed;
   top: 0;
   z-index: 2;
+
+  @include for-size(phone-only) {
+    padding: 25px 20px;
+  }
 }
 
 :global(.dark) {
@@ -29,7 +33,7 @@
 }
 
 .themeSwitcher {
-  font-family: 'Nunito SemiBold';
+  font-family: "Nunito SemiBold";
   display: flex;
   align-items: center;
   background-color: transparent;

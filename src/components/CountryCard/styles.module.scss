@@ -1,5 +1,4 @@
-@import "src/styles/variables/colors";
-@import "src/styles/variables/sizes";
+@import "styles/utils";
 
 .container {
   width: 15%;
@@ -12,6 +11,15 @@
 
   img {
     max-width: 100%;
+  }
+
+  @include for-size(phone-only) {
+    width: 100%;
+    margin: 20px auto;
+
+    & + & {
+      margin-top: 30px;
+    }
   }
 }
 
