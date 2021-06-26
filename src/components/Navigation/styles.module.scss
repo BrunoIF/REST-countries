@@ -25,6 +25,10 @@
 
   .themeSwitcher {
     color: $white;
+
+    @include for-size(phone-only) {
+      background-color: $dark-mode-blue;
+    }
   }
 }
 
@@ -44,5 +48,25 @@
 
   svg {
     margin-right: 10px;
+  }
+
+  @include for-size(phone-only) {
+    $size: 40px;
+
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: $white;
+    height: $size;
+    width: $size;
+    border-radius: 100%;
+    box-shadow: 5px 10px 20px -5px rgba($black, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    svg {
+      margin: 0;
+    }
   }
 }
