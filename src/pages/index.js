@@ -12,7 +12,7 @@ import SelectList from "components/SelectList";
 import {
   REGION_OPTIONS,
   DEFAULT_AMOUNT_COUNTRIES_TO_DISPLAY,
-} from "../constants";
+} from "@constants";
 
 import styles from "./index.module.scss";
 
