@@ -6,7 +6,8 @@
       "@utils/*": ["utils/*"],
       "@constants/*": ["constants/*"],
       "@constants": ["constants"],
-      "@lib/*": ["lib/*"]
+      "@lib/*": ["lib/*"],
+      "@hooks/*": ["hooks/*"]
     }
   }
 }

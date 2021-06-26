@@ -3,9 +3,7 @@ import Head from "next/head";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import cn from "classnames";
-import { useReactiveVar } from "@apollo/client";
 
-import { isDarkThemeVar } from "lib/apolloStates";
 import Input from "components/Input";
 import CountryCard from "components/CountryCard";
 import SelectList from "components/SelectList";
@@ -15,12 +13,13 @@ import {
 } from "@constants";
 
 import styles from "./index.module.scss";
+import { useDarkTheme } from "@hooks/useDarkTheme";
 
 function Home({ countries }) {
   const [searchValue, setSearchValue] = useState("");
   const [countriesContent, setCountriesContent] = useState([]);
   const searchIcon = <FontAwesomeIcon icon={faSearch} />;
-  const isDarkTheme = useReactiveVar(isDarkThemeVar);
+  const { isDarkTheme } = useDarkTheme();
 
   const setMostPopulousCountries = () => {
     const sortedByPopulation = countries.sort(

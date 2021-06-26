@@ -3,14 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon } from "@fortawesome/free-regular-svg-icons";
 import { faMoon as faMoonSolid } from "@fortawesome/free-solid-svg-icons";
 
-import { useReactiveVar } from "@apollo/client";
-import { toggleTheme, isDarkThemeVar } from "lib/apolloStates";
-
 import styles from "./styles.module.scss";
 import { isMobile } from "utils";
+import { useDarkTheme } from "@hooks/useDarkTheme";
 
 function Navigation() {
-  const isDarkTheme = useReactiveVar(isDarkThemeVar);
+  const { isDarkTheme, toggleTheme } = useDarkTheme();
 
   return (
     <>

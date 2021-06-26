@@ -1,16 +1,15 @@
-import React from 'react';
-import cn from 'classnames';
-import { useReactiveVar } from '@apollo/client';
+import React from "react";
+import cn from "classnames";
 
-import '../styles/globals.scss';
-import Navigation from '../components/Navigation';
-import { isDarkThemeVar } from '../lib/apolloStates';
+import "styles/globals.scss";
+import Navigation from "components/Navigation";
+import { useDarkTheme } from "@hooks/useDarkTheme";
 
 function MyApp({ Component, pageProps }) {
-  const isDarkTheme = useReactiveVar(isDarkThemeVar);
+  const { isDarkTheme } = useDarkTheme();
 
   return (
-    <div className={cn('app', { dark: isDarkTheme })}>
+    <div className={cn("app", { dark: isDarkTheme })}>
       <Navigation />
       <Component {...pageProps} />
     </div>
