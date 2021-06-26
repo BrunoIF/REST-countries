@@ -13,8 +13,16 @@
   top: 0;
   z-index: 2;
 
+  .title {
+    font-size: 28px;
+  }
+
   @include for-size(phone-only) {
     padding: 25px 20px;
+
+    .title {
+      font-size: 24px;
+    }
   }
 }
 
@@ -30,10 +38,6 @@
       background-color: $dark-mode-blue;
     }
   }
-}
-
-.title {
-  font-size: 28px;
 }
 
 .themeSwitcher {
