@@ -4,7 +4,7 @@ export const getStringListOfAttr = (list, attr) =>
   list.map((item) => item[attr]).join(", ");
 
 export const isMobile = () => {
-  if (!window) {
+  if (!process.browser) {
     return false;
   }
 
