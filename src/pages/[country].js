@@ -123,7 +123,7 @@ export const getStaticProps = async (context) => {
   } = context;
 
   const response = await fetch(
-    `https://restcountries.eu/rest/v2/name/${country}`
+    `https://restcountries.eu/rest/v2/name/${country}?fullText=true`
   );
   const data = await response.json();
 
