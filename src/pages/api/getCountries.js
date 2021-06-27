@@ -11,12 +11,12 @@ export default async function handler(req, res) {
 
     const { amount, page } = JSON.parse(req.body);
 
-    const countryData = data.slice(amount * page - 1, amount * page);
+    const countryData = data.slice(amount * (page - 1), amount * page);
 
     const response = {
       countries: countryData,
       page: page ?? 0,
-      total: data.length,
+      limit: data.length,
       amount: amount ?? 0,
     };
 
