@@ -1,14 +1,17 @@
-import React from 'react';
+import React from "react";
 
-import styles from './styles.module.scss';
+import s from "./styles.module.scss";
 
-function Input({
-  value, onChange, placeholder, className, Icon,
-}) {
+function Input({ value, onChange, placeholder, className, Icon }) {
   return (
-    <div className={`${styles.input} ${className}`}>
-      {!!Icon && (<span className={styles.icon}>{Icon}</span>)}
-      <input onChange={onChange} type="text" placeholder={placeholder} value={value} />
+    <div className={`${s.input} ${className}`}>
+      {!!Icon && <span className={s.icon}>{Icon}</span>}
+      <input
+        onChange={onChange}
+        type="text"
+        placeholder={placeholder}
+        value={value}
+      />
     </div>
   );
 }

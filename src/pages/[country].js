@@ -8,7 +8,7 @@ import Info from "components/Info";
 import LinkButton from "components/LinkButton";
 import { formatNumber, getStringListOfAttr } from "utils";
 
-import styles from "./country.module.scss";
+import s from "styles/pages/country.module.scss";
 
 function Country({ content }) {
   const route = useRouter();
@@ -36,7 +36,7 @@ function Country({ content }) {
   const borderCountriesList = borderCountries.length
     ? borderCountries.map((country) => (
         <LinkButton
-          className={styles.borderCountry}
+          className={s.borderCountry}
           to={`/${country.toLowerCase()}`}
           text={country}
           key={country}
@@ -50,66 +50,57 @@ function Country({ content }) {
       <Head>
         <title>{name}</title>
       </Head>
-      <div className={`container ${styles.container}`}>
-        <LinkButton
-          to="/"
-          text="Back"
-          className={styles.button}
-          Icon={backArrow}
-        />
-        <div className={styles.country}>
-          <img className={styles.flag} src={flag} alt={`${name}-flag`} />
-          <div className={styles.content}>
-            <h1 className={styles.title}>{name}</h1>
-            <div className={styles.contentContainer}>
-              <div className={styles.contentBlock}>
+      <div className={`container ${s.container}`}>
+        <LinkButton to="/" text="Back" className={s.button} Icon={backArrow} />
+        <div className={s.country}>
+          <img className={s.flag} src={flag} alt={`${name}-flag`} />
+          <div className={s.content}>
+            <h1 className={s.title}>{name}</h1>
+            <div className={s.contentContainer}>
+              <div className={s.contentBlock}>
                 <Info
-                  className={styles.text}
+                  className={s.text}
                   title="Native Name"
                   description={nativeName}
                 />
                 <Info
-                  className={styles.text}
+                  className={s.text}
                   title="Population"
                   description={formattedPopulation}
                 />
+                <Info className={s.text} title="Region" description={region} />
                 <Info
-                  className={styles.text}
-                  title="Region"
-                  description={region}
-                />
-                <Info
-                  className={styles.text}
+                  className={s.text}
                   title="Sub Region"
                   description={subregion}
                 />
                 <Info
-                  className={styles.text}
+                  className={s.text}
                   title="Capital"
                   description={capital}
                 />
               </div>
-              <div className={styles.contentBlock}>
+              <div className={s.contentBlock}>
                 <Info
-                  className={styles.text}
+                  className={s.text}
                   title="Top Level Domain"
                   description={topLevelDomain[0]}
                 />
                 <Info
-                  className={styles.text}
+                  className={s.text}
                   title="Currencies"
                   description={currenciesList}
                 />
                 <Info
-                  className={styles.text}
+                  className={s.text}
                   title="Languages"
                   description={languagesList}
                 />
               </div>
             </div>
-            <div className={styles.borderCountries}>
+            <div className={s.borderCountries}>
               <Info
-                className={styles.text}
+                className={s.text}
                 title="Border Countries"
                 description={borderCountriesList}
               />

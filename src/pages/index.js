@@ -12,7 +12,7 @@ import {
   DEFAULT_AMOUNT_COUNTRIES_TO_DISPLAY,
 } from "@constants";
 
-import styles from "./index.module.scss";
+import s from "styles/pages/index.module.scss";
 import { useDarkTheme } from "@hooks/useDarkTheme";
 
 function Home({ countries }) {
@@ -67,8 +67,8 @@ function Home({ countries }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className={cn("container", { [styles.dark]: isDarkTheme })}>
-        <div className={styles.filters}>
+      <div className={cn("container", { [s.dark]: isDarkTheme })}>
+        <div className={s.filters}>
           <Input
             onChange={(e) => setSearchValue(e.target.value)}
             placeholder="Search for a country..."
@@ -79,7 +79,7 @@ function Home({ countries }) {
           <SelectList options={REGION_OPTIONS} onChange={handleRegionChange} />
         </div>
 
-        <div className={styles.container}>
+        <div className={s.container}>
           {countriesContent.map((country) => (
             <CountryCard key={country.numericCode} country={country} />
           ))}

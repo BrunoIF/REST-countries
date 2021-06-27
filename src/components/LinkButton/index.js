@@ -1,16 +1,14 @@
-import React from 'react';
-import Link from 'next/link';
+import React from "react";
+import Link from "next/link";
 
-import styles from './styles.module.scss';
+import s from "./styles.module.scss";
 
-function LinkButton({
-  to, text, className, Icon,
-}) {
+function LinkButton({ to, text, className, Icon }) {
   return (
-    <div className={`${styles.buttonContainer} ${className}`}>
+    <div className={`${s.buttonContainer} ${className}`}>
       <Link href={to}>
-        <a className={styles.button}>
-          {!!Icon && (<span className={styles.icon}>{Icon}</span>)}
+        <a className={s.button}>
+          {!!Icon && <span className={s.icon}>{Icon}</span>}
           {text}
         </a>
       </Link>

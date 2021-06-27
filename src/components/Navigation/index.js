@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon } from "@fortawesome/free-regular-svg-icons";
 import { faMoon as faMoonSolid } from "@fortawesome/free-solid-svg-icons";
 
-import styles from "./styles.module.scss";
+import s from "./styles.module.scss";
 import { isMobile } from "utils";
 import { useDarkTheme } from "@hooks/useDarkTheme";
 
@@ -12,12 +12,12 @@ function Navigation() {
 
   return (
     <>
-      <div className={styles.container}>
-        <h1 className={styles.title}>Where in the world?</h1>
+      <div className={s.container}>
+        <h1 className={s.title}>Where in the world?</h1>
         {!isMobile() && (
           <button
             type="button"
-            className={styles.themeSwitcher}
+            className={s.themeSwitcher}
             onClick={() => toggleTheme()}
           >
             {isDarkTheme ? (
@@ -32,7 +32,7 @@ function Navigation() {
       {isMobile() && (
         <button
           type="button"
-          className={styles.themeSwitcher}
+          className={s.themeSwitcher}
           onClick={() => toggleTheme()}
         >
           {isDarkTheme ? (

@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import Info from "components/Info";
 
 import { formatNumber } from "utils";
-import styles from "./styles.module.scss";
+import s from "./styles.module.scss";
 
 const easeOut = [0.6, -0.5, 0.01, 0.99];
 
@@ -37,25 +37,22 @@ function CountryCard({ country }) {
   return (
     <Link href={`/${name.toLowerCase()}`}>
       <motion.div
-        className={styles.container}
+        className={s.container}
         variants={variants}
         initial="initial"
         animate="fadeInUp"
         whileHover="hover"
       >
-        <div
-          style={{ backgroundImage: `url('${flag}')` }}
-          className={styles.flag}
-        />
-        <div className={styles.content}>
-          <h3 className={styles.title}>{name}</h3>
+        <div style={{ backgroundImage: `url('${flag}')` }} className={s.flag} />
+        <div className={s.content}>
+          <h3 className={s.title}>{name}</h3>
           <Info
-            className={styles.text}
+            className={s.text}
             title="Population"
             description={formattedPopulation}
           />
-          <Info className={styles.text} title="Region" description={region} />
-          <Info className={styles.text} title="Capital" description={capital} />
+          <Info className={s.text} title="Region" description={region} />
+          <Info className={s.text} title="Capital" description={capital} />
         </div>
       </motion.div>
     </Link>
