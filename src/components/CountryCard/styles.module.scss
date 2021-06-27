@@ -47,6 +47,7 @@
 
 :global(.dark) {
   .container {
+    transition: $theme-transition;
     background-color: $dark-mode-blue;
   }
 }

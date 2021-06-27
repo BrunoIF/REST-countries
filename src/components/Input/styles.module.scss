@@ -45,6 +45,7 @@
 
 :global(.dark) {
   .input {
+    transition: $theme-transition;
     background-color: $dark-mode-blue;
 
     input {

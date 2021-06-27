@@ -81,6 +81,7 @@
 :global(.dark) {
   .selectedValue,
   .options {
+    transition: $theme-transition;
     background-color: $dark-mode-blue;
     color: $white;
   }
