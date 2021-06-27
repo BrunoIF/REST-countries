@@ -1,0 +1,43 @@
+@import "styles/utils";
+
+:global(.dark) {
+  .themeSwitcher {
+    color: $white;
+    transition: $theme-transition;
+
+    &.button {
+      background-color: $dark-mode-blue;
+    }
+  }
+}
+
+.themeSwitcher {
+  border: 0;
+  cursor: pointer;
+
+  &.text {
+    font-family: "Nunito SemiBold";
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    padding: 5px;
+    font-size: 16px;
+
+    svg {
+      margin-right: 10px;
+    }
+  }
+
+  &.button {
+    $size: 40px;
+
+    background-color: $white;
+    height: $size;
+    width: $size;
+    border-radius: 100%;
+    box-shadow: 5px 10px 20px -5px rgba($black, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
