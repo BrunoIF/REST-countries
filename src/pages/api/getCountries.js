@@ -9,9 +9,24 @@ export default async function handler(req, res) {
       res.status(200).json({ data: "not found" });
     }
 
-    const { amount, page } = JSON.parse(req.body);
+    const { amount, page, filters } = JSON.parse(req.body);
 
-    const countryData = data.slice(amount * (page - 1), amount * page);
+    let countryData = data;
+
+    if (filters?.region) {
+      countryData = countryData.filter(
+        (country) =>
+          country.region.toLowerCase() === filters.region.toLowerCase()
+      );
+    }
+
+    if (filters?.name) {
+      countryData = countryData.filter((country) =>
+        country.name.toLowerCase().includes(filters.name.toLowerCase())
+      );
+    }
+
+    countryData = countryData.slice(amount * (page - 1), amount * page);
 
     const response = {
       countries: countryData,
