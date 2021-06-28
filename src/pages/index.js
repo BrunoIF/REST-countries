@@ -11,52 +11,75 @@ import {
   REGION_OPTIONS,
   DEFAULT_AMOUNT_COUNTRIES_TO_DISPLAY,
 } from "@constants";
+import Loader from "components/Loader";
 
 import s from "styles/pages/index.module.scss";
 import { useDarkTheme } from "@hooks/useDarkTheme";
+import { useLazyFetch } from "@hooks/useLazyFetch";
+import { useDebounce } from "@hooks/useDebounce";
 
-function Home({ countries }) {
+const baseArgs = { amount: DEFAULT_AMOUNT_COUNTRIES_TO_DISPLAY };
+
+function Home() {
+  const [page, setPage] = useState(1);
+  const [requestArgs, setRequestArgs] = useState({
+    ...baseArgs,
+    page,
+  });
+  const {
+    fetch: fetchCountries,
+    data,
+    loading,
+  } = useLazyFetch("/api/getCountries", requestArgs);
   const [searchValue, setSearchValue] = useState("");
+  const debounceSearchValue = useDebounce(searchValue, 1000);
   const [countriesContent, setCountriesContent] = useState([]);
   const searchIcon = <FontAwesomeIcon icon={faSearch} />;
   const { isDarkTheme } = useDarkTheme();
 
-  const setMostPopulousCountries = () => {
-    const sortedByPopulation = countries.sort(
-      (a, b) => b.population - a.population
-    );
-    const countriesToDisplay = sortedByPopulation.slice(
-      0,
-      DEFAULT_AMOUNT_COUNTRIES_TO_DISPLAY
-    );
-    setCountriesContent(countriesToDisplay);
-  };
+  useEffect(() => {
+    setRequestArgs({ ...requestArgs, page });
+    fetchCountries(requestArgs);
+  }, [page]);
 
   useEffect(() => {
-    setMostPopulousCountries();
-  }, []);
-
-  useEffect(() => {
-    if (searchValue) {
-      const filteredCountries = countries.filter(({ name }) => {
-        const lowerCaseSearchValue = searchValue.toLowerCase();
-        const lowerCaseCountryName = name.toLowerCase();
-        return lowerCaseCountryName.includes(lowerCaseSearchValue);
-      });
-      setCountriesContent(filteredCountries);
-    } else {
-      setMostPopulousCountries();
+    console.log("data", data);
+    if (data) {
+      setCountriesContent(data?.data.countries);
     }
-  }, [searchValue]);
+  }, [data]);
+
+  useEffect(() => {
+    fetchCountries({
+      ...requestArgs,
+      page: 1,
+      filters: { ...requestArgs.filters, name: searchValue ?? null },
+    });
+  }, [debounceSearchValue]);
 
   const handleRegionChange = (selectedRegion) => {
     if (selectedRegion) {
-      const filteredCountries = countries.filter(
-        (country) => country.region === selectedRegion
-      );
-      setCountriesContent(filteredCountries);
+      const regionRequest = {
+        ...requestArgs,
+        filters: {
+          ...requestArgs.filters,
+          region: selectedRegion,
+        },
+      };
+      setRequestArgs(regionRequest);
+
+      if (page === 1) {
+        fetchCountries(regionRequest);
+      } else {
+        setPage(1);
+      }
     } else {
-      setMostPopulousCountries();
+      setRequestArgs(baseArgs);
+      if (page === 1) {
+        fetchCountries({ ...baseArgs, page });
+      } else {
+        setPage(1);
+      }
     }
   };
 
@@ -79,33 +102,18 @@ function Home({ countries }) {
           <SelectList options={REGION_OPTIONS} onChange={handleRegionChange} />
         </div>
 
-        <div className={s.container}>
-          {countriesContent.map((country) => (
-            <CountryCard key={country.numericCode} country={country} />
-          ))}
+        <div className={cn(s.container, { [s.center]: loading })}>
+          {loading ? (
+            <Loader />
+          ) : (
+            countriesContent.map((country) => (
+              <CountryCard key={country.numericCode} country={country} />
+            ))
+          )}
         </div>
       </div>
     </>
   );
 }
-
-export const getStaticProps = async () => {
-  const res = await fetch(
-    "https://restcountries.eu/rest/v2/all?filter=name;capital;population;flag;region;numericCode"
-  );
-  const data = await res.json();
-
-  if (!data) {
-    return {
-      notFound: true,
-    };
-  }
-
-  return {
-    props: {
-      countries: data,
-    },
-  };
-};
 
 export default Home;
