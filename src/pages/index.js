@@ -14,7 +14,6 @@ import {
 import Loader from "components/Loader";
 
 import s from "styles/pages/index.module.scss";
-import { useDarkTheme } from "@hooks/useDarkTheme";
 import { useLazyFetch } from "@hooks/useLazyFetch";
 import { useDebounce } from "@hooks/useDebounce";
 
@@ -35,7 +34,6 @@ function Home() {
   const debounceSearchValue = useDebounce(searchValue, 1000);
   const [countriesContent, setCountriesContent] = useState([]);
   const searchIcon = <FontAwesomeIcon icon={faSearch} />;
-  const { isDarkTheme } = useDarkTheme();
 
   useEffect(() => {
     setRequestArgs({ ...requestArgs, page });
@@ -43,7 +41,6 @@ function Home() {
   }, [page]);
 
   useEffect(() => {
-    console.log("data", data);
     if (data) {
       setCountriesContent(data?.data.countries);
     }
@@ -90,7 +87,7 @@ function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className={cn("container", { [s.dark]: isDarkTheme })}>
+      <div className="container">
         <div className={s.filters}>
           <Input
             onChange={(e) => setSearchValue(e.target.value)}

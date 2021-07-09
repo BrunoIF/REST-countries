@@ -6,7 +6,6 @@ export function useLazyFetch(url, initialArgs) {
   const [error, setError] = useState(null);
 
   const makeRequest = async (args) => {
-    console.log(args);
     setLoading(true);
     try {
       const response = await fetch(url, {
