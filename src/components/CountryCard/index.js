@@ -31,7 +31,13 @@ const variants = {
 };
 
 function CountryCard({ country }) {
-  const { name, flag, region, capital, population } = country;
+  const {
+    name: { common: name },
+    flags,
+    region,
+    capital,
+    population,
+  } = country;
   const formattedPopulation = formatNumber(population);
 
   return (
@@ -43,7 +49,10 @@ function CountryCard({ country }) {
         animate="fadeInUp"
         whileHover="hover"
       >
-        <div style={{ backgroundImage: `url('${flag}')` }} className={s.flag} />
+        <div
+          style={{ backgroundImage: `url('${flags.svg}')` }}
+          className={s.flag}
+        />
         <div className={s.content}>
           <h3 className={s.title}>{name}</h3>
           <Info

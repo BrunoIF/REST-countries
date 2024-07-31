@@ -4,9 +4,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Head from "next/head";
 
+import { API_URL } from "@constants/api";
 import Info from "components/Info";
 import LinkButton from "components/LinkButton";
-import { formatNumber, getStringListOfAttr } from "utils";
+import { formatNumber } from "utils";
 
 import s from "styles/pages/country.module.scss";
 
@@ -19,22 +20,23 @@ function Country({ content }) {
 
   const {
     population,
-    name,
+    name: { common: name, nativeName },
     region,
     subregion,
-    nativeName,
     capital,
-    topLevelDomain,
+    tld: topLevelDomain,
     currencies,
     languages,
-    flag,
+    flags,
     borderCountries,
   } = content;
   const formattedPopulation = formatNumber(population);
-  const currenciesList = getStringListOfAttr(currencies, "name");
-  const languagesList = getStringListOfAttr(languages, "name");
+  const currenciesList = Object.values(currencies).map(
+    (currency) => currency.name
+  );
+  const languagesList = Object.values(languages);
   const borderCountriesList = borderCountries.length
-    ? borderCountries.map((country) => (
+    ? borderCountries.map(({ common: country }) => (
         <LinkButton
           className={s.borderCountry}
           to={`/${country.toLowerCase()}`}
@@ -53,7 +55,7 @@ function Country({ content }) {
       <div className={`container ${s.container}`}>
         <LinkButton to="/" text="Back" className={s.button} Icon={backArrow} />
         <div className={s.country}>
-          <img className={s.flag} src={flag} alt={`${name}-flag`} />
+          <img className={s.flag} src={flags.png} alt={`${name}-flag`} />
           <div className={s.content}>
             <h1 className={s.title}>{name}</h1>
             <div className={s.contentContainer}>
@@ -61,7 +63,7 @@ function Country({ content }) {
                 <Info
                   className={s.text}
                   title="Native Name"
-                  description={nativeName}
+                  description={Object.values(nativeName)[0].common}
                 />
                 <Info
                   className={s.text}
@@ -122,9 +124,7 @@ export const getStaticProps = async (context) => {
     params: { country },
   } = context;
 
-  const response = await fetch(
-    `https://restcountries.eu/rest/v2/name/${country}?fullText=true`
-  );
+  const response = await fetch(`${API_URL}/name/${country}?fullText=true`);
   const data = await response.json();
 
   if (!data) {
@@ -135,11 +135,11 @@ export const getStaticProps = async (context) => {
 
   let countryData = { ...data[0], borderCountries: [] };
 
-  const borderCountries = data[0].borders?.join(";") || [];
+  const borderCountries = data[0].borders?.join(",") || [];
 
   if (borderCountries.length) {
     const bordersResponse = await fetch(
-      `https://restcountries.eu/rest/v2/alpha?codes=${borderCountries}`
+      `${API_URL}/alpha?codes=${borderCountries}`
     );
     const bordersData = await bordersResponse.json();
 

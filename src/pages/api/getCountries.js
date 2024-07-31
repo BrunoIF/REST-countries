@@ -1,7 +1,9 @@
+import { API_URL } from "@constants/api";
+
 export default async function handler(req, res) {
   try {
     const result = await fetch(
-      "https://restcountries.eu/rest/v2/all?filter=name;capital;population;flag;region;numericCode"
+      `${API_URL}/all?fields=name,capital,population,flags,region,numericCode`
     );
     const data = await result.json();
 
@@ -22,7 +24,7 @@ export default async function handler(req, res) {
 
     if (filters?.name) {
       countryData = countryData.filter((country) =>
-        country.name.toLowerCase().includes(filters.name.toLowerCase())
+        country.name.common.toLowerCase().includes(filters.name.toLowerCase())
       );
     }
 

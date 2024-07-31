@@ -42,7 +42,7 @@ function Home() {
 
   useEffect(() => {
     if (data) {
-      setCountriesContent(data?.data.countries);
+      setCountriesContent(data?.data?.countries ?? []);
     }
   }, [data]);
 
