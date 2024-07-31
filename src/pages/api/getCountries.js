@@ -1,11 +1,19 @@
 import { API_URL } from "@constants/api";
 
+let cachedResponse;
+
 export default async function handler(req, res) {
   try {
-    const result = await fetch(
-      `${API_URL}/all?fields=name,capital,population,flags,region,numericCode`
-    );
-    const data = await result.json();
+    let data;
+    if (!cachedResponse) {
+      const result = await fetch(
+        `${API_URL}/all?fields=name,capital,population,flags,region,numericCode`
+      );
+      data = await result.json();
+      cachedResponse = data;
+    } else {
+      data = cachedResponse;
+    }
 
     if (!data) {
       res.status(200).json({ data: "not found" });
