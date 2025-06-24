@@ -29,15 +29,22 @@
   }
 
   &.button {
-    $size: 40px;
+    $size: 60px;
 
     background-color: $white;
     height: $size;
     width: $size;
     border-radius: 100%;
-    box-shadow: 5px 10px 20px -5px rgba($black, 0.2);
     display: flex;
     justify-content: center;
     align-items: center;
+    @include component-base;
+
+    svg {
+      $size: 1.2rem;
+
+      height: $size;
+      width: $size;
+    }
   }
 }

@@ -1,14 +1,15 @@
 @import "styles/utils";
 
 .input {
-  box-shadow: 2px 5px 10px -5px rgba($black, 0.2);
-  width: 500px;
+  max-width: 500px;
+  flex-grow: 1;
   border-radius: 5px;
   overflow: hidden;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   background-color: $white;
+  @include component-base;
 
   &:has(input:focus) {
     outline: 1px solid $dark-gray;

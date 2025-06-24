@@ -21,3 +21,8 @@
     }
   }
 }
+
+@mixin component-base() {
+  border: 1px solid $border-color;
+  box-shadow: 2px 5px 10px -5px rgba($black, 0.2);
+}

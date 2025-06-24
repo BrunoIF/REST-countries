@@ -15,6 +15,7 @@ function Input({ value, onChange, placeholder, className, icon }: Props) {
     <div className={`${s.input} ${className}`}>
       {!!icon && <span className={s.icon}>{icon}</span>}
       <input
+        name={placeholder}
         onChange={onChange}
         type="text"
         placeholder={placeholder}

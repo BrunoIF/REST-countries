@@ -67,7 +67,7 @@ function CountryCard({ country }: Props) {
             description={formattedPopulation}
           />
           <Info className={s.text} title="Region" description={region} />
-          <Info className={s.text} title="Capital" description={capital} />
+          <Info className={s.text} title="Capital" description={capital[0]} />
         </div>
       </motion.div>
     </Link>

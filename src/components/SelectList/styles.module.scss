@@ -1,9 +1,9 @@
 @import "styles/utils";
 
-@mixin baseProperties {
+@mixin base-properties {
   border-radius: 5px;
   background-color: $white;
-  box-shadow: 2px 5px 10px -5px rgba($black, 0.2);
+  @include component-base;
 }
 
 .container {
@@ -17,16 +17,15 @@
 }
 
 .selectedValue {
-  @include baseProperties;
+  @include base-properties;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  padding: 20px 20px;
+  justify-content: space-between;
+  padding: 20px;
   cursor: pointer;
   position: relative;
   user-select: none;
-
-  svg {
+  height svg {
     $size: 12px;
     height: $size;
     width: $size;
@@ -37,7 +36,7 @@
 }
 
 .options {
-  @include baseProperties;
+  @include base-properties;
   margin-top: 4px;
   z-index: 2;
   position: absolute;

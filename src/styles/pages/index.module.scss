@@ -1,22 +1,30 @@
 @import "styles/utils";
 
 .container {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  column-gap: 3rem;
+  row-gap: 4rem;
 
   &.center {
-    justify-content: center;
+    place-items: center;
+  }
+
+  @include for-size(phone-only) {
+    margin-top: 3rem;
+    row-gap: 2.5rem;
   }
 }
 
 .filters {
-  margin-left: 35px;
-  margin-right: 35px;
-  margin-bottom: 15px;
+  margin-bottom: 45px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  > * + * {
+    margin-left: 5px;
+  }
 
   @include for-size(phone-only) {
     margin: 0;
