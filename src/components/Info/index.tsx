@@ -2,7 +2,13 @@ import React from "react";
 
 import s from "./styles.module.scss";
 
-function Info({ className, title, description }) {
+interface Props {
+  className?: string;
+  title: string;
+  description: string;
+}
+
+function Info({ className, title, description }: Props) {
   return (
     <p className={className}>
       <span className={s.title}>{`${title}: `}</span>
