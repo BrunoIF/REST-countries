@@ -5,7 +5,12 @@ import cn from "classnames";
 
 import s from "./styles.module.scss";
 
-function SelectList({ options, onChange }) {
+interface Props {
+  options: string[];
+  onChange: (selectedValue: string) => void;
+}
+
+function SelectList({ options, onChange }: Props) {
   const [selectedValue, setSelectedValue] = useState(options[0]);
   const [isOpen, setIsOpen] = useState(false);
   const [isResetOpen, setIsResetOpen] = useState(false);

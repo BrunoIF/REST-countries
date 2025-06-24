@@ -10,18 +10,19 @@ import SelectList from "components/SelectList";
 import {
   REGION_OPTIONS,
   DEFAULT_AMOUNT_COUNTRIES_TO_DISPLAY,
-} from "@constants";
+} from "constants/filters";
 import Loader from "components/Loader";
 
 import s from "styles/pages/index.module.scss";
-import { useLazyFetch } from "@hooks/useLazyFetch";
-import { useDebounce } from "@hooks/useDebounce";
+import { RequestArgs, useLazyFetch } from "hooks/useLazyFetch";
+import { useDebounce } from "hooks/useDebounce";
+import { CountryThumbnail } from "types/Country";
 
 const baseArgs = { amount: DEFAULT_AMOUNT_COUNTRIES_TO_DISPLAY };
 
 function Home() {
   const [page, setPage] = useState(1);
-  const [requestArgs, setRequestArgs] = useState({
+  const [requestArgs, setRequestArgs] = useState<RequestArgs>({
     ...baseArgs,
     page,
   });
@@ -29,11 +30,9 @@ function Home() {
     fetch: fetchCountries,
     data,
     loading,
-  } = useLazyFetch("/api/getCountries", requestArgs);
+  } = useLazyFetch<{ countries: CountryThumbnail[] }>("/api/getCountries", requestArgs);
   const [searchValue, setSearchValue] = useState("");
   const debounceSearchValue = useDebounce(searchValue, 1000);
-  const [countriesContent, setCountriesContent] = useState([]);
-  const searchIcon = <FontAwesomeIcon icon={faSearch} />;
 
   useEffect(() => {
     setRequestArgs({ ...requestArgs, page });
@@ -41,20 +40,14 @@ function Home() {
   }, [page]);
 
   useEffect(() => {
-    if (data) {
-      setCountriesContent(data?.data?.countries ?? []);
-    }
-  }, [data]);
-
-  useEffect(() => {
     fetchCountries({
       ...requestArgs,
       page: 1,
-      filters: { ...requestArgs.filters, name: searchValue ?? null },
+      filters: { ...requestArgs.filters, name: searchValue || null },
     });
   }, [debounceSearchValue]);
 
-  const handleRegionChange = (selectedRegion) => {
+  const handleRegionChange = (selectedRegion: string) => {
     if (selectedRegion) {
       const regionRequest = {
         ...requestArgs,
@@ -71,7 +64,7 @@ function Home() {
         setPage(1);
       }
     } else {
-      setRequestArgs(baseArgs);
+      setRequestArgs({ ...baseArgs, page });
       if (page === 1) {
         fetchCountries({ ...baseArgs, page });
       } else {
@@ -93,7 +86,7 @@ function Home() {
             onChange={(e) => setSearchValue(e.target.value)}
             placeholder="Search for a country..."
             value={searchValue}
-            Icon={searchIcon}
+            icon={<FontAwesomeIcon icon={faSearch} />}
           />
 
           <SelectList options={REGION_OPTIONS} onChange={handleRegionChange} />
@@ -103,8 +96,8 @@ function Home() {
           {loading ? (
             <Loader />
           ) : (
-            countriesContent.map((country) => (
-              <CountryCard key={country.numericCode} country={country} />
+            data?.countries.map((country) => (
+              <CountryCard key={country.cca3} country={country} />
             ))
           )}
         </div>

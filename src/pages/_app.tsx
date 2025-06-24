@@ -3,7 +3,7 @@ import cn from "classnames";
 
 import "styles/globals.scss";
 import Navigation from "components/Navigation";
-import { useDarkTheme } from "@hooks/useDarkTheme";
+import { useDarkTheme } from "hooks/useDarkTheme";
 
 function MyApp({ Component, pageProps }) {
   const { isDarkTheme } = useDarkTheme();

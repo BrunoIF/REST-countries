@@ -1,11 +1,27 @@
 import { useState } from "react";
 
-export function useLazyFetch(url, initialArgs) {
+export interface RequestArgs {
+  page: number;
+  amount: number;
+  filters?: { name?: string; region?: string };
+}
+
+interface LazyFetchReturn<T> {
+  data: null | T;
+  loading: boolean;
+  error: string;
+  fetch: (args: RequestArgs) => Promise<void>;
+}
+
+export function useLazyFetch<T>(
+  url: string,
+  initialArgs: RequestArgs
+): LazyFetchReturn<T> {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
-  const makeRequest = async (args) => {
+  const makeRequest = async (args: RequestArgs) => {
     setLoading(true);
     try {
       const response = await fetch(url, {
@@ -13,7 +29,7 @@ export function useLazyFetch(url, initialArgs) {
         body: JSON.stringify(args ?? initialArgs),
       });
       const data = await response.json();
-      setData(data);
+      setData(data.data);
     } catch (err) {
       setError(err);
     } finally {
@@ -24,7 +40,7 @@ export function useLazyFetch(url, initialArgs) {
   return {
     loading,
     error,
-    fetch: (args) => makeRequest(args),
+    fetch: (args: RequestArgs) => makeRequest(args),
     data,
   };
 }

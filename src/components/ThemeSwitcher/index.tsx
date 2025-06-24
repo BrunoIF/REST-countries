@@ -5,9 +5,15 @@ import { faMoon as faMoonSolid } from "@fortawesome/free-solid-svg-icons";
 import cn from "classnames";
 
 import s from "./styles.module.scss";
-import { useDarkTheme } from "@hooks/useDarkTheme";
+import { useDarkTheme } from "hooks/useDarkTheme";
 
-function ThemeSwitcher({ text, type = "button", className }) {
+type Props = {
+  text?: string,
+  type?: "text" | "button"
+  className?: string
+}
+
+function ThemeSwitcher({ text, type = "button", className }: Props) {
   const { isDarkTheme, toggleTheme } = useDarkTheme();
 
   return (

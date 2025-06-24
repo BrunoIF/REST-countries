@@ -2,7 +2,7 @@ import React from "react";
 
 import s from "./styles.module.scss";
 import { isMobile } from "utils";
-import ThemeSwitcher from "@components/ThemeSwitcher";
+import ThemeSwitcher from "components/ThemeSwitcher";
 
 function Navigation() {
   return (

@@ -4,14 +4,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Head from "next/head";
 
-import { API_URL } from "@constants/api";
+import { API_URL } from "constants/api";
 import Info from "components/Info";
 import LinkButton from "components/LinkButton";
 import { formatNumber } from "utils";
+import type { Country as CountryType } from 'types/Country'
 
 import s from "styles/pages/country.module.scss";
 
-function Country({ content }) {
+function Country({ content }: { content: CountryType }) {
   const route = useRouter();
 
   if (route.isFallback) {
@@ -37,15 +38,14 @@ function Country({ content }) {
   const languagesList = Object.values(languages);
   const borderCountriesList = borderCountries.length
     ? borderCountries.map(({ common: country }) => (
-        <LinkButton
-          className={s.borderCountry}
-          to={`/${country.toLowerCase()}`}
-          text={country}
-          key={country}
-        />
-      ))
+      <LinkButton
+        className={s.borderCountry}
+        to={`/${country.toLowerCase()}`}
+        text={country}
+        key={country}
+      />
+    ))
     : null;
-  const backArrow = <FontAwesomeIcon icon={faArrowLeft} />;
 
   return (
     <>
@@ -53,7 +53,7 @@ function Country({ content }) {
         <title>{name}</title>
       </Head>
       <div className={`container ${s.container}`}>
-        <LinkButton to="/" text="Back" className={s.button} Icon={backArrow} />
+        <LinkButton to="/" text="Back" className={s.button} icon={<FontAwesomeIcon icon={faArrowLeft} />} />
         <div className={s.country}>
           <img className={s.flag} src={flags.png} alt={`${name}-flag`} />
           <div className={s.content}>

@@ -1,13 +1,18 @@
-import { API_URL } from "@constants/api";
+import { API_URL } from "constants/api";
+import { NextApiRequest, NextApiResponse } from "next";
 
 let cachedResponse;
 
-export default async function handler(req, res) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   try {
     let data;
+
     if (!cachedResponse) {
       const result = await fetch(
-        `${API_URL}/all?fields=name,capital,population,flags,region,numericCode`
+        `${API_URL}/all?fields=name,capital,population,flags,region,cca3`
       );
       data = await result.json();
       cachedResponse = data;
@@ -16,7 +21,7 @@ export default async function handler(req, res) {
     }
 
     if (!data) {
-      res.status(200).json({ data: "not found" });
+      res.status(500).json({ data: "not found" });
     }
 
     const { amount, page, filters } = JSON.parse(req.body);

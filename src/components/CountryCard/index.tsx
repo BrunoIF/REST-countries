@@ -6,6 +6,7 @@ import Info from "components/Info";
 
 import { formatNumber } from "utils";
 import s from "./styles.module.scss";
+import { CountryThumbnail } from "types/Country";
 
 const easeOut = [0.6, -0.5, 0.01, 0.99];
 
@@ -30,7 +31,11 @@ const variants = {
   },
 };
 
-function CountryCard({ country }) {
+interface Props {
+  country: CountryThumbnail
+}
+
+function CountryCard({ country }: Props) {
   const {
     name: { common: name },
     flags,
@@ -42,6 +47,7 @@ function CountryCard({ country }) {
 
   return (
     <Link href={`/${name.toLowerCase()}`}>
+      {/* @ts-ignore */}
       <motion.div
         className={s.container}
         variants={variants}
