@@ -26,7 +26,15 @@ export default async function handler(
 
     const { amount, page, filters } = JSON.parse(req.body);
 
-    let countryData = data;
+    let countryData = data.sort((a, b) => {
+      if (a.name.common < b.name.common) {
+        return -1;
+      }
+      if (a.name.common > b.name.common) {
+        return 1;
+      }
+      return 0;
+    });
 
     if (filters?.region) {
       countryData = countryData.filter(
