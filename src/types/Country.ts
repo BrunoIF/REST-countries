@@ -11,6 +11,7 @@ export interface CountryThumbnail {
   capital?: string[];
   // 3 Letter Country Code
   cca3: string;
+  cca2: string;
   flags: {
     png: string;
     svg: string;

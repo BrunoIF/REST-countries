@@ -22,6 +22,7 @@ function Country({ content }: { content: CountryType }) {
   const {
     population,
     name: { common: name, nativeName },
+    cca2,
     region,
     subregion,
     capital,
@@ -34,8 +35,8 @@ function Country({ content }: { content: CountryType }) {
   const formattedPopulation = formatNumber(population);
   const currenciesList = currencies && Object.values(currencies).map(
     (currency) => currency.name
-  );
-  const languagesList = languages && Object.values(languages);
+  ).join(', ');
+  const languagesList = languages && Object.values(languages).join(', ');
   const borderCountriesList = borderCountries.length
     ? borderCountries.map(({ common: country }) => (
       <LinkButton
@@ -57,7 +58,10 @@ function Country({ content }: { content: CountryType }) {
         <div className={s.country}>
           <img className={s.flag} src={flags.png} alt={`${name}-flag`} />
           <div className={s.content}>
-            <h1 className={s.title}>{name}</h1>
+            <div className={s.titleContainer}>
+              <h1>{name}</h1>
+              {cca2 && <span className={s.numericCode}>({cca2})</span>}
+            </div>
             <div className={s.contentContainer}>
               <div className={s.contentBlock}>
                 <Info

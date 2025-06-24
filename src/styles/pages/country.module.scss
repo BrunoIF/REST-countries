@@ -40,7 +40,10 @@
   }
 }
 
-.title {
+.titleContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   margin-bottom: 20px;
 
   @include for-size(phone-only) {
@@ -48,9 +51,18 @@
   }
 }
 
+.title {
+}
+
+.numericCode {
+  font-size: 22px;
+  margin-left: 5px;
+}
+
 .text {
   font-size: $font-size-detail;
   margin: 15px 0;
+  line-height: 1.2;
 }
 
 .contentContainer {
@@ -59,6 +71,10 @@
   align-items: flex-start;
   justify-content: space-between;
   width: 80%;
+
+  .contentBlock {
+    max-width: 50%;
+  }
 
   @include for-size(phone-only) {
     flex-flow: column nowrap;
