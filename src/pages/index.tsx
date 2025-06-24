@@ -14,65 +14,47 @@ import {
 import Loader from "components/Loader";
 
 import s from "styles/pages/index.module.scss";
-import { RequestArgs, useLazyFetch } from "hooks/useLazyFetch";
+import { useLazyFetch } from "hooks/useLazyFetch";
 import { useDebounce } from "hooks/useDebounce";
-import { CountryThumbnail } from "types/Country";
+import { useInfiniteScroll } from "hooks/useInfiniteScroll";
+import { GetCountriesResponse } from "types/Api";
 
 const baseArgs = { amount: DEFAULT_AMOUNT_COUNTRIES_TO_DISPLAY };
 
 function Home() {
   const [page, setPage] = useState(1);
-  const [requestArgs, setRequestArgs] = useState<RequestArgs>({
-    ...baseArgs,
-    page,
-  });
+  const [region, setRegion] = useState("")
   const {
     fetch: fetchCountries,
     data,
     loading,
-  } = useLazyFetch<{ countries: CountryThumbnail[] }>("/api/getCountries", requestArgs);
+  } = useLazyFetch<GetCountriesResponse>("/api/getCountries", { ...baseArgs, page });
   const [searchValue, setSearchValue] = useState("");
+  const [countries, setCountries] = useState([])
   const debounceSearchValue = useDebounce(searchValue, 1000);
+  const { ref } = useInfiniteScroll(() => { if (page < data.maxPages) { setPage(prev => prev + 1) } });
+  const isLoading = !countries.length && loading
 
   useEffect(() => {
-    setRequestArgs({ ...requestArgs, page });
-    fetchCountries(requestArgs);
-  }, [page]);
+    console.log({ page })
+    fetchCountries({ ...baseArgs, page, filters: { name: debounceSearchValue || null, region } });
+  }, [page, region, debounceSearchValue]);
 
   useEffect(() => {
-    if (debounceSearchValue) {
-      fetchCountries({
-        ...requestArgs,
-        page: 1,
-        filters: { ...requestArgs.filters, name: searchValue || null },
-      });
+    if (data) {
+      setCountries(prev => ([...prev, ...data.countries]))
     }
+  }, [data])
+
+  useEffect(() => {
+    setPage(1)
+    setCountries([])
   }, [debounceSearchValue]);
 
   const handleRegionChange = (selectedRegion: string) => {
-    if (selectedRegion) {
-      const regionRequest = {
-        ...requestArgs,
-        filters: {
-          ...requestArgs.filters,
-          region: selectedRegion,
-        },
-      };
-      setRequestArgs(regionRequest);
-
-      if (page === 1) {
-        fetchCountries(regionRequest);
-      } else {
-        setPage(1);
-      }
-    } else {
-      setRequestArgs({ ...baseArgs, page });
-      if (page === 1) {
-        fetchCountries({ ...baseArgs, page });
-      } else {
-        setPage(1);
-      }
-    }
+    setRegion(selectedRegion ?? "")
+    setCountries([])
+    setPage(1)
   };
 
   return (
@@ -94,15 +76,16 @@ function Home() {
           <SelectList options={REGION_OPTIONS} onChange={handleRegionChange} />
         </div>
 
-        <div className={cn(s.container, { [s.loading]: loading })}>
-          {loading ? (
+        <div className={cn(s.container, { [s.loading]: isLoading })}>
+          {isLoading ? (
             <Loader />
           ) : (
-            data?.countries.map((country) => (
+            countries.map((country) => (
               <CountryCard key={country.cca3} country={country} />
             ))
           )}
         </div>
+        {!!countries.length && <div ref={ref} />}
       </div>
     </>
   );

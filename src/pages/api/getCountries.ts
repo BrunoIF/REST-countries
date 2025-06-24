@@ -1,5 +1,6 @@
 import { API_URL } from "constants/api";
 import { NextApiRequest, NextApiResponse } from "next";
+import { GetCountriesResponse } from "types/Api";
 
 let cachedResponse;
 
@@ -49,12 +50,16 @@ export default async function handler(
       );
     }
 
+    const limit = countryData.length;
+    const maxPages = Math.ceil(limit / amount);
+
     countryData = countryData.slice(amount * (page - 1), amount * page);
 
-    const response = {
+    const response: GetCountriesResponse = {
       countries: countryData,
       page: page ?? 0,
-      limit: data.length,
+      maxPages,
+      limit,
       amount: amount ?? 0,
     };
 

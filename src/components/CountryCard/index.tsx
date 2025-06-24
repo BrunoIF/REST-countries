@@ -46,7 +46,7 @@ function CountryCard({ country }: Props) {
   const formattedPopulation = formatNumber(population);
 
   return (
-    <Link href={`/${name.toLowerCase()}`}>
+    <Link href={`/${name.toLowerCase()}`} aria-label={name}>
       {/* @ts-ignore */}
       <motion.div
         className={s.container}
@@ -58,9 +58,10 @@ function CountryCard({ country }: Props) {
         <div
           style={{ backgroundImage: `url('${flags.svg}')` }}
           className={s.flag}
+          aria-label={flags.alt}
         />
         <div className={s.content}>
-          <h3 className={s.title}>{name}</h3>
+          <h4 className={s.title}>{name}</h4>
           <Info
             className={s.text}
             title="Population"
