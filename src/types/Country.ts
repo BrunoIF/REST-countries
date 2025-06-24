@@ -1,7 +1,7 @@
 type CountryName = {
   common: string;
   official: string;
-  nativeName: Record<string, CountryName>;
+  nativeName?: Record<string, CountryName>;
 };
 
 export interface CountryThumbnail {
@@ -19,12 +19,12 @@ export interface CountryThumbnail {
 }
 
 export interface Country extends CountryThumbnail {
-  tld: string;
-  currencies: Record<string, { symbol: string; name: string }>;
+  tld: string[];
+  currencies?: Record<string, { symbol: string; name: string }>;
   altSpellings: string[];
   region: string;
   subregion: string;
-  languages: Record<string, string>;
+  languages?: Record<string, string>;
   borders: string[];
   area: number;
   continents: string[];

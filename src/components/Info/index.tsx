@@ -5,7 +5,7 @@ import s from "./styles.module.scss";
 interface Props {
   className?: string;
   title: string;
-  description: string;
+  description: string | React.ReactNode;
 }
 
 function Info({ className, title, description }: Props) {

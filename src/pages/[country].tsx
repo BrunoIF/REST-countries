@@ -32,10 +32,10 @@ function Country({ content }: { content: CountryType }) {
     borderCountries,
   } = content;
   const formattedPopulation = formatNumber(population);
-  const currenciesList = Object.values(currencies).map(
+  const currenciesList = currencies && Object.values(currencies).map(
     (currency) => currency.name
   );
-  const languagesList = Object.values(languages);
+  const languagesList = languages && Object.values(languages);
   const borderCountriesList = borderCountries.length
     ? borderCountries.map(({ common: country }) => (
       <LinkButton
@@ -63,7 +63,7 @@ function Country({ content }: { content: CountryType }) {
                 <Info
                   className={s.text}
                   title="Native Name"
-                  description={Object.values(nativeName)[0].common}
+                  description={nativeName ? Object.values(nativeName)[0].common : name}
                 />
                 <Info
                   className={s.text}
@@ -137,7 +137,7 @@ export const getStaticProps = async (context) => {
 
   const borderCountries = data[0].borders?.join(",") || [];
 
-  if (borderCountries.length) {
+  if (borderCountries?.length) {
     const bordersResponse = await fetch(
       `${API_URL}/alpha?codes=${borderCountries}`
     );

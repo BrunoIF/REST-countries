@@ -15,6 +15,11 @@
     transform: scale(1.02);
     transition: 0.4s;
   }
+
+  a {
+    display: flex;
+    align-items: center;
+  }
 }
 
 .icon {
