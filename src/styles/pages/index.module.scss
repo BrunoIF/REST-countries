@@ -6,8 +6,13 @@
   column-gap: 3rem;
   row-gap: 4rem;
 
-  &.center {
+  &.loading {
+    display: flex;
     place-items: center;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    margin-top: 100px;
   }
 
   @include for-size(phone-only) {

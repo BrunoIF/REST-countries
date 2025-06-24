@@ -40,11 +40,13 @@ function Home() {
   }, [page]);
 
   useEffect(() => {
-    fetchCountries({
-      ...requestArgs,
-      page: 1,
-      filters: { ...requestArgs.filters, name: searchValue || null },
-    });
+    if (debounceSearchValue) {
+      fetchCountries({
+        ...requestArgs,
+        page: 1,
+        filters: { ...requestArgs.filters, name: searchValue || null },
+      });
+    }
   }, [debounceSearchValue]);
 
   const handleRegionChange = (selectedRegion: string) => {
@@ -92,7 +94,7 @@ function Home() {
           <SelectList options={REGION_OPTIONS} onChange={handleRegionChange} />
         </div>
 
-        <div className={cn(s.container, { [s.center]: loading })}>
+        <div className={cn(s.container, { [s.loading]: loading })}>
           {loading ? (
             <Loader />
           ) : (
