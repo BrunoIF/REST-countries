@@ -1,12 +1,12 @@
-import { isDarkThemeVar, toggleTheme, setDarkTheme } from "lib/apolloStates";
-import { useReactiveVar } from "@apollo/client";
+import { DarkThemeContext } from "context/DarkThemeContext";
+import { useContext } from "react";
 
 export function useDarkTheme() {
-  const isDarkTheme = useReactiveVar(isDarkThemeVar);
+  const { isDarkTheme, setIsDarkTheme } = useContext(DarkThemeContext);
 
-  return {
-    setDarkTheme,
-    toggleTheme,
-    isDarkTheme,
+  const toggleTheme = () => {
+    setIsDarkTheme((prev) => !prev);
   };
+
+  return { isDarkTheme, toggleTheme };
 }

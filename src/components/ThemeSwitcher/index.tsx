@@ -23,7 +23,7 @@ function ThemeSwitcher({ text, type = "button", className }: Props) {
         [s.text]: type === "text",
         [s.button]: type === "button",
       })}
-      onClick={() => toggleTheme()}
+      onClick={toggleTheme}
     >
       {isDarkTheme ? (
         <FontAwesomeIcon icon={faMoonSolid} />
