@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import cn from "classnames";
 
 import s from "./styles.module.scss";
+import { useOnClickOutside } from "hooks/useOnClickOutside";
 
 interface Props {
   options: string[];
@@ -14,6 +15,8 @@ function SelectList({ options, onChange }: Props) {
   const [selectedValue, setSelectedValue] = useState(options[0]);
   const [isOpen, setIsOpen] = useState(false);
   const [isResetOpen, setIsResetOpen] = useState(false);
+  const ref = useRef(null);
+  useOnClickOutside(ref, () => setIsOpen(false))
 
   const handleChange = (value) => {
     setSelectedValue(value);
@@ -45,6 +48,7 @@ function SelectList({ options, onChange }: Props) {
       <div
         className={s.selectedValue}
         onClick={() => setIsOpen((prevState) => !prevState)}
+        ref={ref}
       >
         {selectedValue}
         {isOpen ? (
