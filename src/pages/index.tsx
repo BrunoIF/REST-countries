@@ -28,12 +28,14 @@ function Home() {
     fetch: fetchCountries,
     data,
     loading,
+    error
   } = useLazyFetch<GetCountriesResponse>("/api/getCountries", { ...baseArgs, page });
   const [searchValue, setSearchValue] = useState("");
   const [countries, setCountries] = useState([])
   const debounceSearchValue = useDebounce(searchValue, 1000);
   const { ref } = useInfiniteScroll(() => { if (page < data.maxPages) { setPage(prev => prev + 1) } });
-  const isLoading = !countries.length && loading
+  const isEmpty = !countries.length;
+  const isLoading = isEmpty && loading
 
   useEffect(() => {
     console.log({ page })
@@ -57,6 +59,24 @@ function Home() {
     setPage(1)
   };
 
+  const renderResults = () => {
+    if (isLoading) {
+      return <Loader />
+    }
+
+    if (error) {
+      return <p>Something went wrong. Try again later.</p>
+    }
+
+    if (isEmpty) {
+      return <p>No results found, check your filters and try again.</p>
+    }
+
+    return countries.map((country) => (
+      <CountryCard key={country.cca3} country={country} />
+    ))
+  }
+
   return (
     <>
       <Head>
@@ -76,14 +96,8 @@ function Home() {
           <SelectList options={REGION_OPTIONS} onChange={handleRegionChange} />
         </div>
 
-        <div className={cn(s.container, { [s.loading]: isLoading })}>
-          {isLoading ? (
-            <Loader />
-          ) : (
-            countries.map((country) => (
-              <CountryCard key={country.cca3} country={country} />
-            ))
-          )}
+        <div className={cn(s.container, { [s.center]: isLoading || isEmpty })}>
+          {renderResults()}
         </div>
         {!!countries.length && <div ref={ref} />}
       </div>

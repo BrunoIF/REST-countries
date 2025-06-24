@@ -22,7 +22,7 @@ export default async function handler(
     }
 
     if (!data) {
-      res.status(500).json({ data: "not found" });
+      res.status(404).json({ data: "not found" });
     }
 
     const { amount, page, filters } = JSON.parse(req.body);

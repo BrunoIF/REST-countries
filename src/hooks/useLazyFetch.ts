@@ -29,6 +29,10 @@ export function useLazyFetch<T>(
         body: JSON.stringify(args ?? initialArgs),
       });
       const data = await response.json();
+
+      if (data.error) {
+        throw new Error(data.error);
+      }
       setData(data.data);
     } catch (err) {
       setError(err);
